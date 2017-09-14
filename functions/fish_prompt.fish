@@ -48,7 +48,7 @@ function fish_prompt
                 set l_git_branch_size  (echo "$l_git_branch_size+1" | bc)
             end
             
-            set_color $fish_color_host
+            set_color $fish_color_cwd
         end
         
         echo -n "❱"
