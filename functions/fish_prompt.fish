@@ -2,7 +2,7 @@ function fish_prompt
 	set_color $fish_color_cwd
 	
 	set cols (tput cols)
-    echo -n "-("
+    echo -n "-❰"
     
     
     set l_pwd (prompt_pwd)
@@ -10,10 +10,10 @@ function fish_prompt
     set_color $fish_color_cwd_root
     echo -n "$l_pwd"
 	set_color $fish_color_cwd
-    echo -n ")-"
+    echo -n "❱━"
     
     
-    set l_time (date +%R)
+    set l_time (date "+%e.%m %R")
     set l_time_size  (echo -n "$l_time" | wc -c)
     
     git status 2>/dev/null >/dev/null
@@ -27,13 +27,13 @@ function fish_prompt
         set l_git_branch (git branch | grep "* " | cut -c 3- | string trim)
         set l_git_branch_size  (echo -n "$l_git_branch" | wc -c)
 
-        echo -n "[git:"
+        echo -n "❰git⇉"
         set_color $fish_color_host
         echo -n $l_git_branch
         set_color $fish_color_cwd
         
         if test \( $l_unc_n -gt 0 \) -o \( $l_add_n -gt 0 \)
-            echo -n ":"
+            echo -n "⇉"
             set l_git_branch_size  (echo "$l_git_branch_size+1" | bc)
             
             if test $l_unc_n -gt 0
@@ -51,19 +51,19 @@ function fish_prompt
             set_color $fish_color_host
         end
         
-        echo -n "]"
+        echo -n "❱"
     else
         set l_git_branch_size 0
     end
     
-    set remaining_size (echo "$cols-$l_pwd_size-$l_time_size-$l_git_branch_size-12" | bc)
+    set remaining_size (echo "$cols-$l_pwd_size-$l_time_size-$l_git_branch_size-14" | bc)
     
-    for i in (seq 0 $remaining_size); echo -n "-"; end
+    for i in (seq 0 $remaining_size); echo -n "━"; end
     
     set_color normal
-    echo -n "$l_time"
+    echo -n "❰$l_time❱"
 	set_color $fish_color_cwd
-    echo -n "-"
+    echo -n "━"
     
     echo ""
     set_color normal
